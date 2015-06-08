@@ -1,0 +1,24 @@
+{
+	"name": "kylephillips/social-curator",
+	"description": "Social Curator Plugin for WordPress",
+	"keywords": ["wordpress", "plugin", "social"],
+	"homepage": "https://github.com/kylephillips/social-curator-grid",
+	"license": "GPL",
+	"authors": [
+		{
+			"name": "Kyle Phillips",
+			"email": "kylephillipsdesign@gmail.com",
+			"homepage": "https://github.com/kylephillips"
+		}
+	],
+	"type": "wordpress-plugin",
+	"require": {
+		"php": ">=5.4.0",
+		"composer/installers": "v1.0.6"
+	},
+	"autoload": {
+		"psr-4" : {
+			"SocialCuratorGrid\\" : "app/"
+		}
+	}
+}

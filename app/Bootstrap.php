@@ -17,7 +17,7 @@ class Bootstrap {
 	*/
 	private function pluginInit()
 	{
-
+		new API\APIFactory;
 	}
 
 	/**

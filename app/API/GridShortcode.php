@@ -21,9 +21,10 @@ class GridShortcode extends APIBase {
 	{
 		$this->options = shortcode_atts(array(
 			'perpage' => '9', // How many posts to load per request
-			'loadmore' => 'true', // Ability to load more into the grid?
+			'allowmore' => 'true', // Ability to load more into the grid?
 			'loadmoretext' => __('Load More Posts', 'socialcuratorgrid'), // Text inside Load More Button
-			'loadingtext' => __('Loading', 'socialcuratorgrid') // Active text for Load More Button
+			'loadingtext' => __('Loading', 'socialcuratorgrid'), // Active text for Load More Button
+			'iconprefix' => 'social-curator-icon-' // Customize the icon prefix. Will be appended with site name, lowercase, with dashed spaces
 		), $options);
 	}
 
@@ -44,7 +45,8 @@ class GridShortcode extends APIBase {
 			array(
 				'loading' => $this->options['loadingtext'],
 				'loadmore' => $this->options['loadmoretext'],
-				'perpage' => $this->options['perpage']
+				'perpage' => $this->options['perpage'],
+				'iconprefix' => $this->options['iconprefix']
 			)
 		);
 	}

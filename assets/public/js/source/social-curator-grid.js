@@ -25,7 +25,8 @@ var socialCuratorGrid = function()
 	/**
 	* Get Social Posts
 	*/
-	grid.getPosts = function(){
+	grid.getPosts = function()
+	{
 		$.ajax({
 			url: social_curator.ajaxurl,
 			type: 'POST',
@@ -37,21 +38,30 @@ var socialCuratorGrid = function()
 			},
 			success: function(data){
 				grid.offset = grid.offset + grid.numberposts;
-				console.log(data);
-				console.log(grid.numberposts);
+				grid.loadPosts(data.posts);
 			}
 		});
 	}
 
 	/**
-	* Load More Posts
+	* Load Posts into the view
 	*/
-	grid.loadMore = function(){
-		this.getPosts();
-		console.log('loading more');
+	grid.loadPosts = function(posts)
+	{
+		console.log(posts);
 	}
 
+	/**
+	* Load More Posts
+	*/
+	grid.loadMore = function()
+	{
+		this.getPosts();
+	}
 
+	/**
+	* Load More Click Event
+	*/
 	$(document).on('click', '[data-load-more-posts]', function(e){
 		e.preventDefault();
 		grid.loadMore();

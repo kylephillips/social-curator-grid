@@ -59,4 +59,18 @@ class GridShortcode extends APIBase {
 		include Helpers::view('grid/post-grid');
 	}
 
+	/**
+	* Single Post Template
+	* Check for a custom template in the theme
+	*/
+	private function postTemplate()
+	{
+		$custom_template = get_template_directory() . '/templates/social-curator-grid-post-template.php';
+		if ( file_exists($custom_template) ) {
+			include($custom_template);
+			return;
+		}
+		include(\SocialCuratorGrid\Helpers::view('grid/single-post-template'));
+	}
+
 }

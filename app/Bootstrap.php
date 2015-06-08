@@ -17,6 +17,8 @@ class Bootstrap {
 	*/
 	private function pluginInit()
 	{
+		new Config\RegisterSettings;
+		new Config\Settings;
 		new API\APIFactory;
 	}
 

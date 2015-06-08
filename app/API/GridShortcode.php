@@ -20,10 +20,10 @@ class GridShortcode extends APIBase {
 	private function setOptions($options)
 	{
 		$this->options = shortcode_atts(array(
-			'number' => '9',
-			'loadmore' => 'true',
-			'loadmoretext' => __('Load More Posts', 'socialcuratorgrid'),
-			'loadingtext' => __('Loading', 'socialcuratorgrid')
+			'perpage' => '9', // How many posts to load per request
+			'loadmore' => 'true', // Ability to load more into the grid?
+			'loadmoretext' => __('Load More Posts', 'socialcuratorgrid'), // Text inside Load More Button
+			'loadingtext' => __('Loading', 'socialcuratorgrid') // Active text for Load More Button
 		), $options);
 	}
 
@@ -35,7 +35,7 @@ class GridShortcode extends APIBase {
 		wp_enqueue_script(
 			'social-curator-grid',
 			Helpers::plugin_url() . '/assets/public/js/social-curator-grid.min.js', 
-			array('jquery', 'masonry'),
+			array('jquery', 'masonry', 'social-curator'),
 			$this->version
 		);
 		wp_localize_script( 
@@ -43,7 +43,8 @@ class GridShortcode extends APIBase {
 			'social_curator_grid', 
 			array(
 				'loading' => $this->options['loadingtext'],
-				'loadmore' => $this->options['loadmoretext']
+				'loadmore' => $this->options['loadmoretext'],
+				'perpage' => $this->options['perpage']
 			)
 		);
 	}

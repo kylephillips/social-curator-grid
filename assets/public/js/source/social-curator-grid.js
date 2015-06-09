@@ -1,18 +1,31 @@
+/**
+* To use data from the social curator plugin, you must add social-curator as a dependency when enqueuing the script.
+* Use the nonce generator from the primary plugin to generate a nonce dynamically, and pass a callback function as a parameter.
+* This ensures the nonce will be injected and available before any dependent scripts are run.
+*/
 jQuery(function($){
 
 $(document).ready(function(){
 	var nonce = new SocialCuratorNonce;
 	nonce.injectNonce(loadGrid);
-
-	/**
-	* Callback function after nonce has been generated and injected
-	*/
-	function loadGrid()
-	{
-		var postgrid = new socialCuratorGrid($('[data-social-curator-post-grid]'));
-		postgrid.init();
-	}
 });
+
+/**
+* Callback function after nonce has been generated and injected
+*/
+function loadGrid()
+{
+	var postgrid = new socialCuratorGrid($('[data-social-curator-post-grid]'));
+	postgrid.init();
+}
+
+
+/**
+* Function fires once a post has been loaded and appended to the grid
+* @param array data - post data
+* @param object element - New DOM element
+*/
+function social_curator_grid_post_loaded(data, element){}
 
 
 /**
@@ -94,6 +107,7 @@ var socialCuratorGrid = function(el, options)
 			} else {
 				$(grid.o.el).append(newpost);
 			}
+			social_curator_grid_post_loaded(posts[i], newpost);
 		}
 		grid.loading(false);
 	}
@@ -151,12 +165,13 @@ var socialCuratorGridPost = function()
 	post.template = $('[data-single-post-template]').find('[data-template]');
 
 	/**
-	* Append the Post to the Grid
+	* Format the post to be injected into the grid
 	*/
 	post.format = function(data)
 	{
 		var newpost = $(post.template).clone();
 		$(newpost).attr('data-post-container-id', data.id);
+		$(newpost).addClass(data.site);
 		$(newpost).find('[data-icon-link]').html(data.icon_link);
 		$(newpost).find('[data-profile-image]').attr('src', data.profile_image_link);
 		$(newpost).find('[data-profile-link]').attr('href', data.profile_link);
@@ -173,6 +188,7 @@ var socialCuratorGridPost = function()
 		return newpost;
 	}
 }
+
 
 }); // jQuery
 

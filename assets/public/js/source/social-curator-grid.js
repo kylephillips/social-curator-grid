@@ -87,7 +87,6 @@ var socialCuratorGrid = function(el, options)
 				number: grid.o.numberposts
 			},
 			success: function(data){
-				if ( data.posts.length == 0 ) return grid.noPosts();
 				grid.o.offset = grid.o.offset + grid.o.numberposts;
 				grid.loadPosts(data.posts);
 			}
@@ -109,6 +108,7 @@ var socialCuratorGrid = function(el, options)
 			}
 			social_curator_grid_post_loaded(posts[i], newpost);
 		}
+		if ( posts.length < grid.o.numberposts ) return grid.noPosts();
 		grid.loading(false);
 	}
 

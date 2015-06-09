@@ -185,8 +185,37 @@ var socialCuratorGridPost = function()
 			var html = '<a href="' + data.link + '"><img src="' + data.thumbnail + '" /></a>';
 			$(newpost).find('[data-thumbnail]').html(html);
 		}
+		if ( social_curator_grid.twitterintents === '1' && data.site === 'twitter' ){
+			var intentFormatter = new socialCuratorTwitterIntents;
+			newpost = intentFormatter.append(data, newpost);
+		}
 		return newpost;
 	}
+}
+
+
+
+/**
+* Twitter Intents
+*/
+var socialCuratorTwitterIntents = function()
+{
+
+	var intents = this;
+	intents.template = $('[data-twitter-intents-template]').find('[data-single-intent-template]');
+
+	/**
+	* Append intents to the element
+	*/
+	intents.append = function(data, element)
+	{
+		var newintents = $(intents.template).clone().appendTo(element);
+		$(newintents).find('[data-intent-retweet]').html('<a href="https://twitter.com/intent/retweet?tweet_id=' + data.original_id + '"><i class="' + social_curator_grid.iconprefix + 'loop"></i></a>');
+		$(newintents).find('[data-intent-favorite]').html('<a href="https://twitter.com/intent/favorite?tweet_id=' + data.original_id + '"><i class="' + social_curator_grid.iconprefix + 'star-full"></i></a>');
+		$(newintents).find('[data-intent-tweet]').html('<a href="https://twitter.com/intent/tweet?in_reply_to=' + data.original_id + '"><i class="' + social_curator_grid.iconprefix + 'redo2"></i></a>');
+		return element;
+	}
+
 }
 
 

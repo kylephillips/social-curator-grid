@@ -59,19 +59,19 @@
 .social-curator-icon-twitter:before {
   content: "\ea91"; }
 
-.social-curator-icon-youtube3:before {
+.social-curator-icon-youtube:before {
   content: "\ea99"; }
 
 .social-curator-icon-vimeo:before {
   content: "\ea9c"; }
 
-.social-curator-icon-flickr2:before {
+.social-curator-icon-flickr:before {
   content: "\eaa1"; }
 
 .social-curator-icon-picassa:before {
   content: "\eaa4"; }
 
-.social-curator-icon-dribbble3:before {
+.social-curator-icon-dribbble:before {
   content: "\eaa8"; }
 
 .social-curator-icon-github:before {
@@ -86,7 +86,7 @@
 .social-curator-icon-reddit:before {
   content: "\eac7"; }
 
-.social-curator-icon-linkedin2:before {
+.social-curator-icon-linkedin:before {
   content: "\eac9"; }
 
 .social-curator-icon-pinterest:before {
@@ -184,3 +184,20 @@
 .social-curator-grid-loading {
   text-align: center;
   padding: 20px 0; }
+
+.social-curator-grid-twitter-intents ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+  .social-curator-grid-twitter-intents ul li {
+    float: left;
+    width: 33.3333%; }
+    .social-curator-grid-twitter-intents ul li a {
+      color: #808080;
+      display: block;
+      text-align: center;
+      padding: 5px 0;
+      background-color: #ebebeb;
+      border-left: 1px solid #e0e0e0; }
+    .social-curator-grid-twitter-intents ul li:first-child a {
+      border: 0; }

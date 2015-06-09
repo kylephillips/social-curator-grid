@@ -1,0 +1,23 @@
+//
+// Twitter Intents
+// --------------------------------------------------
+.social-curator-grid-twitter-intents {
+	ul {
+		@include unstyled;
+		li {
+			float: left;
+			width: 33.3333%;
+			a {
+				color: darken($white, 50%);
+				display: block;
+				text-align: center;
+				padding: 5px 0;
+				background-color: darken($white, 8%);
+				border-left: 1px solid darken($white, 12%);
+			}
+			&:first-child a {
+				border: 0;
+			}
+		}
+	}
+}

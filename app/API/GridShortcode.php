@@ -54,8 +54,24 @@ class GridShortcode extends APIBase {
 				'iconprefix' => $this->options['iconprefix'],
 				'masonry' => $this->options['masonry'],
 				'masonrycolumns' => Helpers::convertNumber(intval($this->options['masonrycolumns'])),
-				'completetext' => $this->options['completetext']
+				'completetext' => $this->options['completetext'],
+				'twitterintents' => $this->settings_repo->twitterIntents()
 			)
+		);
+	}
+
+	/**
+	* Enqueue Twitter Intents
+	*/
+	public function twitterIntents()
+	{
+		if ( !$this->settings_repo->twitterIntents() ) return;
+		wp_enqueue_script(
+			'twitter-intents',
+			'//platform.twitter.com/widgets.js', 
+			array(),
+			$this->version,
+			true
 		);
 	}
 
@@ -80,6 +96,7 @@ class GridShortcode extends APIBase {
 	{
 		$this->setOptions($options);
 		$this->enqueueScript();
+		$this->twitterIntents();
 		$this->enqueueStyle();
 		include Helpers::view('grid/post-grid');
 	}
@@ -96,6 +113,21 @@ class GridShortcode extends APIBase {
 			return;
 		}
 		include(\SocialCuratorGrid\Helpers::view('grid/single-post-template'));
+	}
+
+	/**
+	* Twitter Intents Template
+	* Check for a custom template in the theme, default to plugin template
+	*/
+	private function twitterIntentsTemplate()
+	{
+		if ( !$this->settings_repo->twitterIntents() ) return;
+		$custom_template = get_template_directory() . '/templates/social-curator-grid-twitter-intents-template.php';
+		if ( file_exists($custom_template) ) {
+			include($custom_template);
+			return;
+		}
+		include(\SocialCuratorGrid\Helpers::view('grid/twitter-intents'));
 	}
 
 	/**

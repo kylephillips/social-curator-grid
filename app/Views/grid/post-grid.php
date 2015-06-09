@@ -16,3 +16,8 @@
 <div data-single-post-template style="display:none;">
 	<?php $this->postTemplate(); ?>
 </div>
+
+<!-- Twitter Intents Template -->
+<div data-twitter-intents-template style="display:none;">
+	<?php $this->twitterIntentsTemplate(); ?>
+</div>

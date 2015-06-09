@@ -64,6 +64,7 @@ class GridShortcode extends APIBase {
 	*/
 	private function enqueueStyle()
 	{
+		if ( !$this->settings_repo->outputCss() ) return;
 		wp_enqueue_style( 
 			'social-curator-grid', 
 			Helpers::plugin_url() . '/assets/public/css/social-curator-grid.css', 

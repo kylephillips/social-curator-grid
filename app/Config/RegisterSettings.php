@@ -15,7 +15,7 @@ class RegisterSettings {
 	*/
 	public function registerSettings()
 	{
-		register_setting( 'social-curator-grid-general', 'social_curator_display' );
+		register_setting( 'social-curator-grid-general', 'social_curator_grid_display' );
 	}
 
 }

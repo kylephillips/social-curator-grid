@@ -6,6 +6,7 @@ var notify = require('gulp-notify');
 var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
 
 // Paths – Admin
 var admin_scss = 'assets/admin/scss/*';
@@ -54,6 +55,15 @@ gulp.task('public_styles', function(){
 		.pipe(notify('Social Curator Grid public styles compiled & compressed.'));
 });
 
+// Uncompressed Public Styles
+gulp.task('public_styles_uncompressed', function(){
+	return gulp.src(public_scss)
+		.pipe(sass({ outputStyle: 'expanded' }))
+		.pipe(autoprefix('last 15 version'))
+		.pipe(rename('social-curator-grid-full.css'))
+		.pipe(gulp.dest(public_css))
+});
+
 // JS
 gulp.task('public_js', function(){
 	return gulp.src(public_js_source)
@@ -70,7 +80,7 @@ gulp.task('public_js', function(){
 gulp.task('watch', function(){
 	livereload.listen(8000);
 	gulp.watch(admin_scss, ['admin_styles']);
-	gulp.watch(public_scss, ['public_styles']);
+	gulp.watch(public_scss, ['public_styles', 'public_styles_uncompressed']);
 	gulp.watch(public_js_source, ['public_js']);
 });
 
@@ -80,7 +90,8 @@ gulp.task('watch', function(){
 */
 gulp.task('default', [
 	'admin_styles', 
-	'public_styles', 
+	'public_styles',
+	'public_styles_uncompressed',
 	'public_js',
 	'watch'
 ]);

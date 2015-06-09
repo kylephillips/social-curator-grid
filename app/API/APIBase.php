@@ -1,5 +1,7 @@
 <?php namespace SocialCuratorGrid\API;
 
+use SocialCuratorGrid\Config\SettingsRepository;
+
 /**
 * Base class for API Classes
 */
@@ -15,8 +17,14 @@ abstract class APIBase {
 	*/
 	protected $version;
 
+	/**
+	* Settings Repository
+	*/
+	protected $settings_repo;
+
 	public function __construct()
 	{
+		$this->settings_repo = new SettingsRepository;
 		$this->setVersion();
 	}
 

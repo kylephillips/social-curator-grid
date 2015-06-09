@@ -19,6 +19,7 @@ class Bootstrap {
 	{
 		new Config\RegisterSettings;
 		new Config\Settings;
+		new Config\Activation;
 		new API\APIFactory;
 	}
 

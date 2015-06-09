@@ -24,7 +24,10 @@ class GridShortcode extends APIBase {
 			'allowmore' => 'true', // Ability to load more into the grid?
 			'loadmoretext' => __('Load More Posts', 'socialcuratorgrid'), // Text inside Load More Button
 			'loadingtext' => __('Loading', 'socialcuratorgrid'), // Active text for Load More Button
-			'iconprefix' => 'social-curator-icon-' // Customize the icon prefix. Will be appended with site name, lowercase, with dashed spaces
+			'iconprefix' => 'social-curator-icon-', // Customize the icon prefix. Will be appended with site name, lowercase, with dashed spaces
+			'masonry' => 'true', // Whether to enable masonry
+			'masonrycolumns' => '2', // how many columns in the grid
+			'completetext' => __('No More Posts', 'socialcuratorgrid')
 		), $options);
 	}
 
@@ -33,10 +36,12 @@ class GridShortcode extends APIBase {
 	*/
 	private function enqueueScript()
 	{
+		$dependencies = array('jquery', 'social-curator');
+		if ( $this->options['masonry'] == 'true' ) $dependencies[] = 'masonry';
 		wp_enqueue_script(
 			'social-curator-grid',
 			Helpers::plugin_url() . '/assets/public/js/social-curator-grid.min.js', 
-			array('jquery', 'masonry', 'social-curator'),
+			$dependencies,
 			$this->version
 		);
 		wp_localize_script( 
@@ -46,8 +51,24 @@ class GridShortcode extends APIBase {
 				'loading' => $this->options['loadingtext'],
 				'loadmore' => $this->options['loadmoretext'],
 				'perpage' => $this->options['perpage'],
-				'iconprefix' => $this->options['iconprefix']
+				'iconprefix' => $this->options['iconprefix'],
+				'masonry' => $this->options['masonry'],
+				'masonrycolumns' => Helpers::convertNumber(intval($this->options['masonrycolumns'])),
+				'completetext' => $this->options['completetext']
 			)
+		);
+	}
+
+	/**
+	* Enqueue Styles
+	*/
+	private function enqueueStyle()
+	{
+		wp_enqueue_style( 
+			'social-curator-grid', 
+			Helpers::plugin_url() . '/assets/public/css/social-curator-grid.css', 
+			array(), 
+			$this->version
 		);
 	}
 
@@ -58,12 +79,13 @@ class GridShortcode extends APIBase {
 	{
 		$this->setOptions($options);
 		$this->enqueueScript();
+		$this->enqueueStyle();
 		include Helpers::view('grid/post-grid');
 	}
 
 	/**
 	* Single Post Template
-	* Check for a custom template in the theme
+	* Check for a custom template in the theme, default to plugin template
 	*/
 	private function postTemplate()
 	{
@@ -73,6 +95,16 @@ class GridShortcode extends APIBase {
 			return;
 		}
 		include(\SocialCuratorGrid\Helpers::view('grid/single-post-template'));
+	}
+
+	/**
+	* Loading GIF/State
+	* Allows customization of loading content
+	*/
+	private function loading()
+	{
+		$loading = '<img src="' . Helpers::plugin_url() . '/assets/public/images/loading.gif' . '" alt="' . __('Loading', 'socialcuratorgrid') . '" />';
+		return apply_filters('social_curator_grid_loading_content', $loading);
 	}
 
 }

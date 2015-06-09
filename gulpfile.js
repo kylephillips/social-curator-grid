@@ -51,7 +51,7 @@ gulp.task('public_styles', function(){
 		.pipe(autoprefix('last 15 version'))
 		.pipe(gulp.dest(public_css))
 		.pipe(livereload())
-		.pipe(notify('Social Curator public styles compiled & compressed.'));
+		.pipe(notify('Social Curator Grid public styles compiled & compressed.'));
 });
 
 // JS

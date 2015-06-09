@@ -46,4 +46,40 @@ class Helpers {
 		return $social_curator_grid_version;
 	}
 
+	/**
+	* Convert string number to english word (for class naming)
+	*/
+	public static function convertNumber($number)
+	{
+		switch ($number) {
+			case 1:
+				return 'one';
+				break;
+
+			case 2:
+				return 'two';
+				break;
+
+			case 3:
+				return 'three';
+				break;
+
+			case 4:
+				return 'four';
+				break;
+
+			case 5:
+				return 'five';
+				break;
+
+			case 6:
+				return 'six';
+				break;
+
+			default:
+				return 2;
+				break;
+		}
+	}
+
 }

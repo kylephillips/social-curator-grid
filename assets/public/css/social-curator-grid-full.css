@@ -167,13 +167,14 @@
         position: relative;
         z-index: 1; }
     .social-curator-post-grid-single .social-curator-post-head .social-curator-profile-image {
-      width: 80px;
+      width: 70px;
       float: left;
       margin-right: 10px; }
     .social-curator-post-grid-single .social-curator-post-head p {
       position: relative;
       font-size: 0.8em;
-      top: 10px; }
+      line-height: 1.4;
+      top: 12px; }
   .social-curator-post-grid-single .social-curator-post-content {
     font-size: 0.8em;
     padding-top: 10px; }

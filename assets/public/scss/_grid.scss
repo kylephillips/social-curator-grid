@@ -1,10 +1,6 @@
 //
 // Primary Grid Styles
 // --------------------------------------------------
-.entry-header, .entry-content, .entry-summary, .entry-meta {
-	max-width: none;
-}
-
 .social-curator-post-grid {
 	@include clearfix;
 	&.masonry-grid.two {

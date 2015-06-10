@@ -1,6 +1,7 @@
 <?php namespace SocialCuratorGrid\Config;
 
 use SocialCurator\Config\SettingsRepository as ParentRepository;
+use SocialCurator\Helpers;
 
 class SettingsRepository {
 
@@ -33,6 +34,20 @@ class SettingsRepository {
 		$supported_sites = new ParentRepository;
 		if ( !in_array($site, $supported_sites->getEnabledSites()) ) return false;
 		return true;
+	}
+
+	/**
+	* Get the Fallback Avatar
+	*/
+	public function fallbackAvatar($return_url = true)
+	{
+		$default_url = Helpers::plugin_url() . '/assets/images/avatar-fallback.png';
+		$option = get_option('social_curator_fallback_avatar');
+		if ( !$option && !$return_url) return false;
+		if ( !$option && $return_url ) return $default_url;
+		if ( !$option ) return '<img src="' . $default_url . '" />';
+		if ( $return_url ) return $option;
+		return '<img src="' . $option . '" />';
 	}
 
 }

@@ -173,7 +173,7 @@ var socialCuratorGridPost = function()
 		$(newpost).attr('data-post-container-id', data.id);
 		$(newpost).addClass(data.site);
 		$(newpost).find('[data-icon-link]').html(data.icon_link);
-		$(newpost).find('[data-profile-image]').attr('src', data.profile_image_link);
+		$(newpost).find('[data-profile-image]').html('<img src="' + data.profile_image_link + '" data-profile-image class="social-curator-profile-image" onerror="this.onerror=null;this.src=' + "'" + social_curator_grid.defaultavatar + "'" + ';">');
 		$(newpost).find('[data-profile-link]').attr('href', data.profile_link);
 		$(newpost).find('[data-profile-name]').text(data.profile_name);
 		$(newpost).find('[data-date]').text(data.date);

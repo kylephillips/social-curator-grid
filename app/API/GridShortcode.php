@@ -55,7 +55,8 @@ class GridShortcode extends APIBase {
 				'masonry' => $this->options['masonry'],
 				'masonrycolumns' => Helpers::convertNumber(intval($this->options['masonrycolumns'])),
 				'completetext' => $this->options['completetext'],
-				'twitterintents' => $this->settings_repo->twitterIntents()
+				'twitterintents' => $this->settings_repo->twitterIntents(),
+				'defaultavatar' => $this->settings_repo->fallbackAvatar()
 			)
 		);
 	}

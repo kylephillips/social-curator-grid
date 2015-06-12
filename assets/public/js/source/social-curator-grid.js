@@ -1,4 +1,21 @@
 /**
+* Function fires once a post has been loaded, before being appended to the grid
+* @param array data - post data
+* @param object element - New DOM element
+*/
+function social_curator_grid_post_preloaded(element, data){}
+
+/**
+* Function fires once a post has been loaded and appended to the grid
+* @param array data - post data
+* @param object element - New DOM element
+*/
+function social_curator_grid_post_loaded(data, element){}
+
+
+
+
+/**
 * To use data from the social curator plugin, you must add social-curator as a dependency when enqueuing the script.
 * Use the nonce generator from the primary plugin to generate a nonce dynamically, and pass a callback function as a parameter.
 * This ensures the nonce will be injected and available before any dependent scripts are run.
@@ -8,25 +25,17 @@ jQuery(function($){
 $(document).ready(function(){
 	var nonce = new SocialCuratorNonce;
 	nonce.injectNonce(loadGrid);
+
+	/**
+	* Callback function after nonce has been generated and injected
+	*/
+	function loadGrid()
+	{
+		var postgrid = new socialCuratorGrid(jQuery('[data-social-curator-post-grid]'));
+		postgrid.init();
+	}
+
 });
-
-/**
-* Callback function after nonce has been generated and injected
-*/
-function loadGrid()
-{
-	var postgrid = new socialCuratorGrid($('[data-social-curator-post-grid]'));
-	postgrid.init();
-}
-
-
-/**
-* Function fires once a post has been loaded and appended to the grid
-* @param array data - post data
-* @param object element - New DOM element
-*/
-function social_curator_grid_post_loaded(data, element){}
-
 
 /**
 * The Primary Grid Object
@@ -189,6 +198,7 @@ var socialCuratorGridPost = function()
 			var intentFormatter = new socialCuratorTwitterIntents;
 			newpost = intentFormatter.append(data, newpost);
 		}
+		social_curator_grid_post_preloaded(newpost, data)
 		return newpost;
 	}
 }

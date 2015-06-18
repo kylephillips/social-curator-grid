@@ -175,6 +175,16 @@
   .social-curator-post-grid-single .social-curator-post-content {
     font-size: 0.8em;
     padding-top: 10px; }
+    .social-curator-post-grid-single .social-curator-post-content .message {
+      margin-bottom: 15px; }
+    .social-curator-post-grid-single .social-curator-post-content .caption {
+      background-color: #f0f0f0;
+      padding: 10px; }
+    .social-curator-post-grid-single .social-curator-post-content .caption-name {
+      font-weight: bold;
+      margin-bottom: 5px; }
+    .social-curator-post-grid-single .social-curator-post-content .caption-link {
+      padding-top: 5px; }
 
 .social-curator-grid-footer {
   text-align: center; }

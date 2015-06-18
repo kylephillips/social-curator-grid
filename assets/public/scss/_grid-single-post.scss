@@ -34,5 +34,19 @@
 	.social-curator-post-content {
 		font-size: .8em;
 		padding-top: 10px;
+		.message {
+			margin-bottom: 15px;
+		}
+		.caption {
+			background-color: darken($white, 6%);
+			padding: 10px;
+		}
+		.caption-name {
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+		.caption-link {
+			padding-top: 5px;
+		}
 	}
 } // .social-curator-post-grid-single

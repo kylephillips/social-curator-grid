@@ -16,6 +16,7 @@ var admin_css = 'assets/admin/';
 var public_scss = 'assets/public/scss/*';
 var public_css = 'assets/public/css/';
 var public_js_source = [
+	'assets/public/js/source/imagesloaded.js',
 	'assets/public/js/source/social-curator-grid.js'
 ]
 var public_js_compiled = 'assets/public/js/';

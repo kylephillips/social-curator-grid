@@ -18,3 +18,8 @@ To display the grid, use the shortcode ```[social_curator_grid]```.
 * masonry – Whether to display posts in masonry grid (true/false)
 * masonrycolumns - Number of masonry columns to display (int)
 * completetext – Text to display in load more button when no posts are remaining (string)
+
+## Filters
+
+```social_curator_grid_loading_content```
+Customize the loading text/image in the "loading" button state. Returns HTML.

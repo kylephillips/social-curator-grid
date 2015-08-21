@@ -22,4 +22,5 @@ To display the grid, use the shortcode ```[social_curator_grid]```.
 ## Filters
 
 ```social_curator_grid_loading_content```
+
 Customize the loading text/image in the "loading" button state. Returns HTML.

@@ -27,7 +27,8 @@ class GridShortcode extends APIBase {
 			'iconprefix' => 'social-curator-icon-', // Customize the icon prefix. Will be appended with site name, lowercase, with dashed spaces
 			'masonry' => 'true', // Whether to enable masonry
 			'masonrycolumns' => '2', // how many columns in the grid
-			'completetext' => __('No More Posts', 'socialcuratorgrid')
+			'completetext' => __('No More Posts', 'socialcuratorgrid'),
+			'favoriteicon' => 'star' // star vs heart
 		), $options);
 	}
 

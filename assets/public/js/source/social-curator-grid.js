@@ -221,7 +221,14 @@ var socialCuratorTwitterIntents = function()
 	{
 		var newintents = $(intents.template).clone().appendTo(element);
 		$(newintents).find('[data-intent-retweet]').html('<a href="https://twitter.com/intent/retweet?tweet_id=' + data.original_id + '"><i class="' + social_curator_grid.iconprefix + 'loop"></i></a>');
-		$(newintents).find('[data-intent-favorite]').html('<a href="https://twitter.com/intent/favorite?tweet_id=' + data.original_id + '"><i class="' + social_curator_grid.iconprefix + 'star-full"></i></a>');
+		
+		var favoritebtn = $(newintents).find('[data-intent-favorite]');
+		if ( $(favoritebtn).hasClass('heart') ){
+			$(newintents).find('[data-intent-favorite]').html('<a href="https://twitter.com/intent/favorite?tweet_id=' + data.original_id + '"><i class="' + social_curator_grid.iconprefix + 'heart"></i></a>');
+		} else {
+			$(newintents).find('[data-intent-favorite]').html('<a href="https://twitter.com/intent/favorite?tweet_id=' + data.original_id + '"><i class="' + social_curator_grid.iconprefix + 'star-full"></i></a>');
+		}
+		
 		$(newintents).find('[data-intent-tweet]').html('<a href="https://twitter.com/intent/tweet?in_reply_to=' + data.original_id + '"><i class="' + social_curator_grid.iconprefix + 'redo2"></i></a>');
 		return element;
 	}

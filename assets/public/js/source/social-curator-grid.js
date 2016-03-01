@@ -54,7 +54,8 @@ var socialCuratorGrid = function(el, options)
 		columns : ( social_curator_grid.masonrycolumns ) ? social_curator_grid.masonrycolumns : 'two',
 		completetext : social_curator_grid.completetext,
 		footer : $('[data-social-curator-grid-footer]'),
-		thumbnailsonly : (  social_curator_grid.thumbnailsonly === 'true' ) ? true : false
+		thumbnailsonly : (  social_curator_grid.thumbnailsonly === 'true' ) ? true : false,
+		thumbnailsize : social_curator_grid.thumbnailsize
 	}
 
 	/**
@@ -95,7 +96,8 @@ var socialCuratorGrid = function(el, options)
 				action: 'social_curator_get_posts',
 				offset: grid.o.offset,
 				number: grid.o.numberposts,
-				thumbnailsonly: grid.o.thumbnailsonly
+				thumbnailsonly: grid.o.thumbnailsonly,
+				thumbnailsize: grid.o.thumbnailsize
 			},
 			success: function(data){
 				grid.o.offset = grid.o.offset + grid.o.numberposts;

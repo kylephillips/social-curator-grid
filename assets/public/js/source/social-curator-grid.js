@@ -53,7 +53,8 @@ var socialCuratorGrid = function(el, options)
 		masonry : ( social_curator_grid.masonry == 'true' ) ? true : false,
 		columns : ( social_curator_grid.masonrycolumns ) ? social_curator_grid.masonrycolumns : 'two',
 		completetext : social_curator_grid.completetext,
-		footer : $('[data-social-curator-grid-footer]')
+		footer : $('[data-social-curator-grid-footer]'),
+		thumbnailsonly : (  social_curator_grid.thumbnailsonly === 'true' ) ? true : false
 	}
 
 	/**
@@ -93,7 +94,8 @@ var socialCuratorGrid = function(el, options)
 				nonce : social_curator_nonce,
 				action: 'social_curator_get_posts',
 				offset: grid.o.offset,
-				number: grid.o.numberposts
+				number: grid.o.numberposts,
+				thumbnailsonly: grid.o.thumbnailsonly
 			},
 			success: function(data){
 				grid.o.offset = grid.o.offset + grid.o.numberposts;

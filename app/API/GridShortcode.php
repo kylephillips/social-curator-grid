@@ -28,7 +28,8 @@ class GridShortcode extends APIBase {
 			'masonry' => 'true', // Whether to enable masonry
 			'masonrycolumns' => '2', // how many columns in the grid
 			'completetext' => __('No More Posts', 'socialcuratorgrid'),
-			'favoriteicon' => 'star' // star vs heart
+			'favoriteicon' => 'star', // star vs heart
+			'thumbnailsonly' => 'false', // only include posts with thumbnails
 		), $options);
 	}
 
@@ -57,7 +58,8 @@ class GridShortcode extends APIBase {
 				'masonrycolumns' => Helpers::convertNumber(intval($this->options['masonrycolumns'])),
 				'completetext' => $this->options['completetext'],
 				'twitterintents' => $this->settings_repo->twitterIntents(),
-				'defaultavatar' => $this->settings_repo->fallbackAvatar()
+				'defaultavatar' => $this->settings_repo->fallbackAvatar(),
+				'thumbnailsonly' => $this->options['thumbnailsonly']
 			)
 		);
 	}

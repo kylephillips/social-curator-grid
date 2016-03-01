@@ -30,6 +30,7 @@ class GridShortcode extends APIBase {
 			'completetext' => __('No More Posts', 'socialcuratorgrid'),
 			'favoriteicon' => 'star', // star vs heart
 			'thumbnailsonly' => 'false', // only include posts with thumbnails
+			'thumbnailsize' => 'full', // thumbnail size to pull
 		), $options);
 	}
 
@@ -59,7 +60,8 @@ class GridShortcode extends APIBase {
 				'completetext' => $this->options['completetext'],
 				'twitterintents' => $this->settings_repo->twitterIntents(),
 				'defaultavatar' => $this->settings_repo->fallbackAvatar(),
-				'thumbnailsonly' => $this->options['thumbnailsonly']
+				'thumbnailsonly' => $this->options['thumbnailsonly'],
+				'thumbnailsize' => $this->options['thumbnailsize']
 			)
 		);
 	}

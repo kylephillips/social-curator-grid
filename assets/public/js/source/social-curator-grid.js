@@ -1,3 +1,5 @@
+var postgrid;
+
 /**
 * Function fires once a post has been loaded, before being appended to the grid
 * @param array data - post data
@@ -12,7 +14,15 @@ function social_curator_grid_post_preloaded(element, data){}
 */
 function social_curator_grid_post_loaded(data, element){}
 
+/**
+* Function fires after masonry update/load
+*/
+function social_curator_masonry_callback(element){}
 
+/**
+* Function fires after all posts have loaded
+*/
+function social_curator_grid_all_posts_loaded(items){}
 
 
 /**
@@ -20,6 +30,7 @@ function social_curator_grid_post_loaded(data, element){}
 * Use the nonce generator from the primary plugin to generate a nonce dynamically, and pass a callback function as a parameter.
 * This ensures the nonce will be injected and available before any dependent scripts are run.
 */
+
 jQuery(function($){
 
 $(document).ready(function(){
@@ -31,7 +42,7 @@ $(document).ready(function(){
 	*/
 	function loadGrid()
 	{
-		var postgrid = new socialCuratorGrid(jQuery('[data-social-curator-post-grid]'));
+		postgrid = new socialCuratorGrid(jQuery('[data-social-curator-post-grid]'));
 		postgrid.init();
 	}
 
@@ -43,6 +54,7 @@ $(document).ready(function(){
 var socialCuratorGrid = function(el, options)
 {
 	var grid = this;
+	var masonry_instance;
 	
 	grid.o = {
 		el : el,
@@ -64,6 +76,11 @@ var socialCuratorGrid = function(el, options)
 	grid.init = function()
 	{
 		if ( grid.o.masonry ) {
+			grid.masonry_instance = new Masonry(grid.o.el[0], {
+				itemSelector: '[data-template]',
+				percentPosition: true ,
+				gutter: '.gutter-sizer',
+			});
 			$(grid.o.el).addClass('masonry-grid');
 			$(grid.o.el).addClass(grid.o.columns);
 		}
@@ -115,14 +132,23 @@ var socialCuratorGrid = function(el, options)
 			var post = new socialCuratorGridPost;
 			var newpost = post.format(posts[i]);
 			if ( grid.o.masonry ){
-				grid.applyMasonry(newpost);
+				$(grid.o.el).append( newpost );
+				grid.masonry_instance.appended(newpost);
 			} else {
 				$(grid.o.el).append(newpost);
 			}
-			social_curator_grid_post_loaded(posts[i], newpost);
 		}
 		if ( posts.length < grid.o.numberposts ) return grid.noPosts();
 		grid.loading(false);
+
+		if ( grid.o.masonry ){
+			grid.o.el.imagesLoaded(function(){
+				grid.masonry_instance.on('layoutComplete', function(items){
+					social_curator_grid_all_posts_loaded(items);
+				});
+				grid.masonry_instance.layout();
+			});
+		}
 	}
 
 	/**
@@ -148,22 +174,6 @@ var socialCuratorGrid = function(el, options)
 
 		$(grid.o.loading).hide();
 		$(grid.o.btn).attr('disabled', false).html(social_curator_grid.loadmore).removeClass('loading');
-	}
-
-	/**
-	* Apply Masonry
-	*/
-	grid.applyMasonry = function(append)
-	{
-		var $masonry_container = $(grid.o.el).masonry({
-			itemSelector: '[data-template]',
-			percentPosition: true ,
-			gutter: '.gutter-sizer'
-		});
-		$masonry_container.imagesLoaded(function(){
-			$masonry_container.masonry();
-		});
-		if ( append ) $masonry_container.append( append ).masonry( 'appended', append );
 	}
 }
 
@@ -203,7 +213,9 @@ var socialCuratorGridPost = function()
 			newpost = intentFormatter.append(data, newpost);
 		}
 		social_curator_grid_post_preloaded(newpost, data)
+		
 		return newpost;
+
 	}
 }
 

@@ -3,10 +3,9 @@ var sass = require('gulp-sass');
 var autoprefix = require('gulp-autoprefixer');
 var livereload = require('gulp-livereload');
 var notify = require('gulp-notify');
-var jshint = require('gulp-jshint');
+var minifycss = require('gulp-minify-css');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
 
 // Paths – Admin
 var admin_scss = 'assets/admin/scss/*';
@@ -29,15 +28,15 @@ var public_js_compiled = 'assets/public/js/';
 */
 
 // Styles
-gulp.task('admin_styles', function(){
+var admin_styles = function(){
 	return gulp.src(admin_scss)
-		.pipe(sass({ outputStyle: 'compressed' }))
-		.pipe(autoprefix('last 15 version'))
+		.pipe(sass({sourceComments: 'map', sourceMap: 'sass', style: 'compact'}))
+		.pipe(autoprefix('last 5 version'))
+		.pipe(minifycss({keepBreaks: false}))
 		.pipe(gulp.dest(admin_css))
 		.pipe(livereload())
 		.pipe(notify('Social Curator Grid admin styles compiled & compressed.'));
-});
-
+}
 
 
 /**
@@ -47,52 +46,40 @@ gulp.task('admin_styles', function(){
 */
 
 // Styles
-gulp.task('public_styles', function(){
+var public_styles = function(){
 	return gulp.src(public_scss)
-		.pipe(sass({ outputStyle: 'compressed' }))
-		.pipe(autoprefix('last 15 version'))
+		.pipe(sass({sourceComments: 'map', sourceMap: 'sass', style: 'compact'}))
+		.pipe(autoprefix('last 5 version'))
+		.pipe(minifycss({keepBreaks: false}))
 		.pipe(gulp.dest(public_css))
 		.pipe(livereload())
 		.pipe(notify('Social Curator Grid public styles compiled & compressed.'));
-});
+}
 
-// Uncompressed Public Styles
-gulp.task('public_styles_uncompressed', function(){
-	return gulp.src(public_scss)
-		.pipe(sass({ outputStyle: 'expanded' }))
-		.pipe(autoprefix('last 15 version'))
-		.pipe(rename('social-curator-grid-full.css'))
-		.pipe(gulp.dest(public_css))
-});
-
-// JS
-gulp.task('public_js', function(){
+/**
+* Concatenate and minify scripts
+*/
+var public_js = function(){
 	return gulp.src(public_js_source)
 		.pipe(concat('social-curator-grid.min.js'))
-		.pipe(gulp.dest(public_js_compiled))
-		.pipe(uglify())
-		.pipe(gulp.dest(public_js_compiled))
-});
-
+		//.pipe(uglify())
+		.pipe(gulp.dest(public_js_compiled));
+};
 
 /**
 * Watch Task
 */
 gulp.task('watch', function(){
-	livereload.listen(8000);
-	gulp.watch(admin_scss, ['admin_styles']);
-	gulp.watch(public_scss, ['public_styles', 'public_styles_uncompressed']);
-	gulp.watch(public_js_source, ['public_js']);
+	livereload.listen();
+	
+	gulp.watch(admin_scss, gulp.series(admin_styles));
+	gulp.watch(public_scss, gulp.series(public_styles));
+	gulp.watch(public_js_source, gulp.series(public_js));
+
 });
 
 
 /**
 * Default
 */
-gulp.task('default', [
-	'admin_styles', 
-	'public_styles',
-	'public_styles_uncompressed',
-	'public_js',
-	'watch'
-]);
+gulp.task('default', gulp.series(admin_styles, public_styles, public_js, 'watch'));

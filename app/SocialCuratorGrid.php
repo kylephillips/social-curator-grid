@@ -8,7 +8,7 @@ class SocialCuratorGrid {
 	public static function init()
 	{
 		global $social_curator_grid_version;
-		$social_curator_grid_version = '1.0';
+		$social_curator_grid_version = '1.0.1';
 
 		$app = new SocialCuratorGrid\Bootstrap;
 	}

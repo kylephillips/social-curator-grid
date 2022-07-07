@@ -3,7 +3,7 @@
 Plugin Name: Social Curator Grid
 Plugin URI: https://github.com/kylephillips/social-curator-grid
 Description: Extends the Social Curator plugin with a masonry grid of social posts
-Version: 0.0.1
+Version: 1.0.1
 Author: Kyle Phillips
 Author URI: https://github.com/kylephillips
 Text Domain: socialcuratorgrid
@@ -12,7 +12,7 @@ License: GPLv2 or later.
 Copyright: Kyle Phillips
 */
 
-/*  Copyright 2015 Kyle Phillips  (email : kylephillipsdesign@gmail.com)
+/*  Copyright 2022 Kyle Phillips  (email : kylephillipsdesign@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 

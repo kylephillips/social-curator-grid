@@ -62,7 +62,7 @@ var public_styles = function(){
 var public_js = function(){
 	return gulp.src(public_js_source)
 		.pipe(concat('social-curator-grid.min.js'))
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest(public_js_compiled));
 };
 

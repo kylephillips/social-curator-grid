@@ -146,7 +146,9 @@ var socialCuratorGrid = function(el, options)
 				grid.masonry_instance.on('layoutComplete', function(items){
 					social_curator_grid_all_posts_loaded(items);
 				});
-				grid.masonry_instance.layout();
+				setTimeout(function(){
+					grid.masonry_instance.layout();
+				}, 400);
 			});
 		}
 	}

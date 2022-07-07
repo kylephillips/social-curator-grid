@@ -135,7 +135,7 @@ function makeArray( obj ) {
 
   let isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
   // convert nodeList to array
-  if ( isArrayLike ) return [ ...obj ];
+  //if ( isArrayLike ) return [ ...obj ];
 
   // array of single index
   return [ obj ];
